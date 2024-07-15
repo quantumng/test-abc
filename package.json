@@ -13,6 +13,11 @@
   "license": "ISC",
   "devDependencies": {
     "@stary/depmonitor": "^1.0.0",
+    "@stary/js-phrase": "^1.0.14",
     "husky": "^9.0.11"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "react": "^16.8.0"
   }
 }
