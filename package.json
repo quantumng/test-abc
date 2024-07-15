@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "prepare": "husky"
+    "prepare": "husky",
+    "depmonitor": "depmonitor 7e71846d1dc30bdadd5b4924763188642c4f12b939cc0c3cab476b5c5216ada6"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@stary/depmonitor": "^1.0.0",
     "husky": "^9.0.11"
   }
 }
