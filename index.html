@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <script type="module">
+        import birpc, { createBirpc } from 'https://cdn.jsdelivr.net/npm/birpc@0.2.17/+esm';
+
+        const channel = new MessageChannel()
+
+        const Bob = {
+            hey(name) {
+                return `Hey ${name}, I am Bob`
+            }
+        }
+
+        const rpcBob = createBirpc(
+            Bob,
+            {
+                post: data => channel.port1.postMessage(data),
+                on: data => channel.port1.on('message', data),
+            },
+        )
+
+        await rpcBob.hi('Alice') // Hi Bob, I am Alice
+
+        const Alice = {
+            hi(name) {
+                return `Hi ${name}, I am Alice`
+            }
+        }
+
+        const rpcAlice = createBirpc(
+        Alice,
+            {
+                post: data => channel.port2.postMessage(data),
+                on: data => channel.port2.on('message', data),
+            },
+        )
+
+        await rpcAlice.hey('Alice') // Hey Alice, I am Bob
+    </script>
+    <script>
+        // class Bridge {
+        //     constructor() {
+        //         console.log('bridge init');
+        //     }
+        //     run(bridge){
+        //         console.log('bridge run', bridge);
+        //     }
+        //     call(handlerName, args, responseCallback) {
+
+        //         console.log('bridge call', handlerName, args, responseCallback);
+        //     }
+        //     callAsyn(handlerName, args, responseCallback) {
+        //         console.log('bridge callAsyn', handlerName, args, responseCallback);
+        //     }
+        // }
+
+        // const bridge = new Bridge();
+
+        // const bridgeProxy = new Proxy(bridge, {
+        //     get(target, propKey) {
+        //         console.log('proxy get', target, propKey);
+        //         return target[propKey];
+        //     }
+        // });
+
+        // bridgeProxy.call('getUserInfo', { abc: 1 }, (res) => {
+        //     console.log('getUserInfo res', res);
+        // });
+
+
+    </script>
+</body>
+</html>
